@@ -5,10 +5,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -18,6 +15,17 @@ function App() {
           Learn React
         </a>
       </header>
+      
+      <body>
+        <iframe 
+        src="https://open.spotify.com/embed/playlist/3cnkhyqinMpD5O6f6qh5l4?si=eOwrMAD9QAOzMID8wjluiQ" 
+        width="500" 
+        height="100" 
+        frameborder="0" 
+        allowtransparency="true" 
+        allow="encrypted-media">
+        </iframe>
+      </body>
     </div>
   );
 }
