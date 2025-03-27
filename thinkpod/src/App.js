@@ -1,26 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import React, {useState, useEffect} from 'react';
+import Timer from'./Components/Timer.jsx';
+
 
 function App() {
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+
   return (
-    <div className="App">
+    <div className="App h-screen w-screen bg-gray-100 flex flex-col items-center justify-center overflow-hidden h0">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        
       </header>
       
-      <body>
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <body className="bg-gray-100">
+        <Timer />
+        <div className="min-h-screen flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold text-gray-800">Hello, World!</h1>
           <p className="text-gray-600 mt-2">React and Tailwind is finally ready!</p>
@@ -28,17 +24,15 @@ function App() {
             Click Me
           </button>
         </div>
+        </div>  
 
         <iframe 
         src="https://open.spotify.com/embed/playlist/3cnkhyqinMpD5O6f6qh5l4?si=eOwrMAD9QAOzMID8wjluiQ" 
-        width="500" 
-        height="100" 
+        className="w-[500px] h-[100px] items-end"
         frameborder="0" 
         allowtransparency="true" 
         allow="encrypted-media">
-        </iframe>
-        </div>
-        
+        </iframe>   
       </body>
     </div>
   );
