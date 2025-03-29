@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, {useState, useEffect} from 'react';
 import Timer from'./Components/Timer.jsx';
@@ -9,12 +8,24 @@ function App() {
   let width = window.innerWidth;
   let height = window.innerHeight;
 
+  //practice variable to ensure flask and react set up properly
+  const[currentTime, setCurrentTime] = useState(1);
+
+  /** 
+   * empty list means that useEffect has no dependencies
+   * added to make sure that it is not invoked everytime the state changes 
+  */
   useEffect(() => {
+    
+    fetch('/time').then(res => res.json()).then(data => {
+      setCurrentTime(data.time);
+    });
+
     async function displayBackGroundSettings(){
       return await backgroundSelection();
     }
     displayBackGroundSettings()
-  }, []);
+    },[]);
 
   return (
     <div className="App h-screen w-screen bg-gray-100 flex flex-col items-center justify-center overflow-hidden h0">
@@ -40,6 +51,11 @@ function App() {
           
         </div>
         </div>  
+
+        {/* This is just to make sure that the flask and react are properly connected*/}
+        <p>
+          The current time is {currentTime}.
+        </p>
 
         <iframe 
           src="https://open.spotify.com/embed/playlist/3cnkhyqinMpD5O6f6qh5l4?si=eOwrMAD9QAOzMID8wjluiQ" 
