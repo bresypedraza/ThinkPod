@@ -21,7 +21,7 @@ function Timer({seconds}){
         }
     })
 
-    function start(){
+    function Start(){
         useEffect(() => {
         timerId.current = setInterval(() => {
             setCountdown(prev => prev - 1)
@@ -30,11 +30,11 @@ function Timer({seconds}){
         }, [])
     }
 
-    function stop(){
+    function Stop(){
 
     }
 
-    function reset(){
+    function Reset(){
 
     }
 
@@ -44,7 +44,7 @@ function Timer({seconds}){
         <div className='bg-blue-500 rounded-lg w-auto h-auto place-self-end m-4'>
             <div className='display font-bold text-center text-5xl p-10'>{formatTime(countdown)}</div>
             <div className='controls flex-col text-center font-sans'>
-                <button onClick={start} className='start-button bg-green-500 rounded m-2 w-[40px] h-[40px]'>Start</button>
+                <button onClick={Start} className='start-button bg-green-500 rounded m-2 w-[40px] h-[40px]'>Start</button>
                 <button onClick={reset} className='reset-button bg-gray-400 rounded m-2 w-[40px] h-[40px]'>Reset</button>
                 <button onClick={stop} className='stop-button bg-red-500 rounded m-2 w-[40px] h-[40px]'>Stop</button>
             </div>
