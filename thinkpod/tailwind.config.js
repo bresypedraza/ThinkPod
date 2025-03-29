@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       colors:{
-        'gray-rgba': 'rgba(209, 213, 219,0.5)'
+        'gray-rgba': 'rgba(245,228,204,255)'
       },
     },
   },
