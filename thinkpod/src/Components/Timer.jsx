@@ -30,11 +30,11 @@ function Timer({seconds}){
         }, [])
     }
 
-    function Stop(){
+    function stop(){
 
     }
 
-    function Reset(){
+    function reset(){
 
     }
 
