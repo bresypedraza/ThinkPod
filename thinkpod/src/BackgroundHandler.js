@@ -25,13 +25,69 @@ class BackgroundHandler{
     }
 
 
+    /**
+     * 
+     * @returns An array of URLs for AI Ambience videos fetched from the Pixabay API. 
+     */
+    async getSnowVideosAndThumbnail(){
+        const url = "https://pixabay.com/api/videos/?key="+BackgroundHandler.API_KEY+"&q=snow";
+        return fetch(url)
+        .then(response =>{
+            if(!response.ok){
+                throw new Error("Fail to get videos");
+            }
+            return response.json();
+        })
+        .then(data=>{
+                return data.hits.map(hit=>[hit.videos.small.url, hit.videos.small.thumbnail]);
+        })
+    }
+
+    /**
+     * 
+     * @returns An array of URLs for AI Ambience videos fetched from the Pixabay API. 
+     */
+    async getNatureVideosAndThumbnail(){
+        const url = "https://pixabay.com/api/videos/?key="+BackgroundHandler.API_KEY+"&q=nature";
+        return fetch(url)
+        .then(response =>{
+            if(!response.ok){
+                throw new Error("Fail to get videos");
+            }
+            return response.json();
+        })
+        .then(data=>{
+                return data.hits.map(hit=>[hit.videos.small.url, hit.videos.small.thumbnail]);
+        })
+    }
+
+    /**
+     * 
+     * @returns An array of URLs for AI Ambience videos fetched from the Pixabay API. 
+     */
+    async getOceanVideosAndThumbnail(){
+        const url = "https://pixabay.com/api/videos/?key="+BackgroundHandler.API_KEY+"&q=ocean";
+        return fetch(url)
+        .then(response =>{
+            if(!response.ok){
+                throw new Error("Fail to get videos");
+            }
+            return response.json();
+        })
+        .then(data=>{
+                return data.hits.map(hit=>[hit.videos.small.url, hit.videos.small.thumbnail]);
+        })
+    }
+
+
 
 }
 
 function changeBackground(webBackground, videoElement){
     videoElement.classList.add("fixed", "inset-x-0", "bottom-0", "min-w-full", "min-h-full", "z-[-1]");
-    if(webBackground.contains(document.querySelector("video"))){
-        document.querySelector("video").remove();
+    const currentVid = document.querySelector("video");
+    if(currentVid){
+        currentVid.remove();
     }
     const vidClone = videoElement.cloneNode(true);
     webBackground.append(vidClone);
@@ -41,7 +97,7 @@ function changeBackground(webBackground, videoElement){
 const backgroundSelection = async ()=>{
     const videoHandler = new BackgroundHandler();
     const background= document.querySelector('.background_setting');
-    const backgroundOptions = await videoHandler.getAmbienceVideosAndThumbnail();
+    const backgroundOptions = await videoHandler.getOceanVideosAndThumbnail();
     const imgDiv = document.createElement('div');
     console.log("BEEEE");
     console.log(backgroundOptions);
@@ -65,9 +121,9 @@ const backgroundSelection = async ()=>{
         vid.src = videoUrl;
         vid.muted = true;
         vid.autoplay = true;
-        // vid.loop = true;
+        vid.loop = true;
 
-        const webBody = document.querySelector("body");
+        const webBody = document.querySelector(".screen");
         thumbnail.addEventListener("click", function(){
             changeBackground(webBody, vid);
         });
