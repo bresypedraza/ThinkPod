@@ -6,3 +6,4 @@ Make sure to have these packages installed if you wish to run this repo on your 
 - python 
 - tailwind
   
+- on the flaskAPI --> pip install flask-cors
