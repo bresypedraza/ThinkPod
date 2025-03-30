@@ -10,9 +10,11 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
+
 app = Flask(__name__)
+
 #for deployment the URL needs to be set to the actual domain name!!
-CORS(app, origins=os.getenv("CLIENT_URL", "http://localhost:3000"))
+CORS(app, origins=os.getenv("CLIENT_URL","http://localhost:3000"))
 
 @app.route('/time')
 def getCurrentTime():
