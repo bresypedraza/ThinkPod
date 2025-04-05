@@ -18,7 +18,9 @@ To get npm start to activate both front and back end (with the 4 neccessary term
   (venv) … flaskAPI % pip install flask-cors python-dotenv
 
 2) make sure concurrently is installed (globally and in the front end) 
-  … cd ../thinkpod
+  … cd ..
+  … cd Thinkpod
+  … cd thinkpod
   … ThinkPod % npm install -g concurrently
   …thinkpod % npm install concurrently --save-dev
 
