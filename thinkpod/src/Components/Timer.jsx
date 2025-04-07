@@ -1,55 +1,65 @@
+// ----- Timer Component ----- //
+
 import React, {useState, useEffect, useRef} from 'react';
 
-const formatTime = (time) => {
-    let minutes = Math.floor(time / 60);
-    let seconds = Math.floor(time - minutes * 60);
-
-    if (minutes <= 10) minutes = '0' + minutes;
-    if (seconds <= 10) seconds = '0' + seconds;
-    return minutes + ":" + seconds;
-}
-
-function Timer({seconds}){
+export function Timer({seconds}) {
     const [countdown, setCountdown] = useState(seconds);
-    const timerId = useRef();
+    const [isActive, setIsActive] = useState(false);
+    const intervalRef = useState(null);
+    // const timerId = useRef();
 
 
     useEffect(() => {
-        if(countdown <= 0) {
-            clearInterval(timerId.current)
-            alert("END")
-        }
-    })
+        if (isActive) {
+            intervalRef.current = setInterval(() => {
+              setCountdown((prevSeconds) => prevSeconds - 1);
+            }, 1000);
+          } else {
+            clearInterval(intervalRef.current);
+          }
+          return () => clearInterval(intervalRef.current);
+        }, [isActive]);
 
-    function Start(){
-        useEffect(() => {
-        timerId.current = setInterval(() => {
-            setCountdown(prev => prev - 1)
-        }, 1000)
-        return () => clearInterval(timerId.current)
-        }, [])
+    
+    const formatTime = (time) => {
+        let minutes = Math.floor(time / 60);
+        let seconds = Math.floor(time - minutes * 60);
+    
+        if (minutes <= 10) minutes = '0' + minutes;
+        if (seconds <= 10) seconds = '0' + seconds;
+        return minutes + ":" + seconds;
+    }
+    
+    function handleStart() {
+        setIsActive(true);
     }
 
-    function stop(){
-
+    function handleStop() {
+        setIsActive(false);
     }
 
-    function reset(){
-
+    function handleReset() {
+        console.log("reset");
     }
 
+    function handleClick() {
+        console.log('Button clicked!');
+    }
 
+    console.log('RENDERED!');
+    
     return(
     <div className='Timer'>
         <div className='bg-blue-500 rounded-lg w-auto h-auto place-self-end m-4'>
             <div className='display font-bold text-center text-5xl p-10'>{formatTime(countdown)}</div>
             <div className='controls flex-col text-center font-sans'>
-                <button onClick={Start} className='start-button bg-green-500 rounded m-2 w-[40px] h-[40px]'>Start</button>
-                <button onClick={reset} className='reset-button bg-gray-400 rounded m-2 w-[40px] h-[40px]'>Reset</button>
-                <button onClick={stop} className='stop-button bg-red-500 rounded m-2 w-[40px] h-[40px]'>Stop</button>
+                {!isActive ? (
+                    <button onClick={handleClick} className='start-button bg-green-500 rounded m-2 w-[40px] h-[40px]'>Start</button>
+                ) : (
+                    <button onClick={handleStop} className='stop-button bg-red-500 rounded m-2 w-[40px] h-[40px]'>Stop</button>
+                )}
+                <button onClick={handleReset} className='reset-button bg-gray-400 rounded m-2 w-[40px] h-[40px]'>Reset</button>
             </div>
         </div>
     </div>)
 }
-
-export default Timer;
