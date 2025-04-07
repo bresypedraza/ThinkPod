@@ -1,6 +1,6 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
-import Timer from'./Components/Timer.jsx';
+import {Timer} from'./Components/Timer.jsx';
 import { BackgroundSelection, ChangeBackground } from './Components/BackgroundHandler.jsx';
 
 
@@ -31,7 +31,7 @@ function App() {
         </button>
         <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet"></link>
       </header>
-      <Timer />
+      <Timer seconds={1500}/>
       <ChangeBackground videoUrl={backgroundVideo}/>
       <div className="min-h-screen flex items-center justify-center">
         <div className="background_setting absolute w-2/3 h-2/3 bg-gray-rgba bg-opacity-50 font-bold overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] rounded-xl p-5">
