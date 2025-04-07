@@ -1,20 +1,18 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
 import Timer from'./Components/Timer.jsx';
-import {backgroundSelection} from './BackgroundHandler';
+import { BackgroundSelection, ChangeBackground } from './Components/BackgroundHandler.jsx';
+
 
 
 function App() {
   let width = window.innerWidth;
   let height = window.innerHeight;
 
-  //practice variable to ensure flask and react set up properly
+  {/*These are states that will be updated in the website.*/}
   const[currentTime, setCurrentTime] = useState(1);
+  const [backgroundVideo, setBackgroundVideo] = useState(null);
 
-  /** 
-   * empty list means that useEffect has no dependencies
-   * added to make sure that it is not invoked everytime the state changes 
-  */
   useEffect(() => {
     
     fetch('http://127.0.0.1:5000/time')
@@ -23,30 +21,43 @@ function App() {
         setCurrentTime(data.time);
     });
 
-    async function displayBackGroundSettings(){
-      return await backgroundSelection();
-    }
-    displayBackGroundSettings()
     },[]);
 
   return (
     <div className="App">
-      
-      <body className="screen bg-gray-100">
       <header>
         <button className="bg-white text-black p-2 rounded-lg">
           Click me
         </button>
+        <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet"></link>
       </header>
-        <Timer />
+      <Timer />
+      <ChangeBackground videoUrl={backgroundVideo}/>
       <div className="min-h-screen flex items-center justify-center">
-
-      <div className="background_setting absolute w-2/3 h-2/3 bg-gray-rgba bg-opacity-50 font-bold overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] rounded-xl p-5">
-        <div> 
-          <span  className="text-3xl flex items-center justify-center m-4">Background Setting</span> 
+        <div className="background_setting absolute w-2/3 h-2/3 bg-gray-rgba bg-opacity-50 font-bold overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] rounded-xl p-5">
+          <div className="ThemeSelector display flex gap-4">
+            <div className="flex justify-center w-8 bg-soft-white rounded-md rounded p-1"> 
+              All
+            </div>
+            <div className="flex justify-center w-8 bg-soft-white rounded-md rounded p-1">
+              <i class="em em-snowman" aria-role="presentation" aria-label=""></i>
+            </div>
+            <div className="flex justify-center w-8 bg-soft-white rounded-md rounded p-1">
+              <i class="em em-ocean" aria-role="presentation" aria-label="WATER WAVE"></i>
+            </div>
+            <div className="flex justify-center w-8 bg-soft-white rounded-md rounded p-1">
+              <i class="em em-couch_and_lamp" aria-role="presentation" aria-label=""></i>
+            </div>
+            <div className="flex justify-center w-8 bg-soft-white rounded-md rounded p-1">
+              <i class="em em-milky_way" aria-role="presentation" aria-label="MILKY WAY"></i>
+            </div>
+          </div>
+          <div> 
+            <span  className="text-3xl flex justify-center m-4">Background Setting</span> 
+          </div>
+          <BackgroundSelection setBackgroundVideo={setBackgroundVideo}/>
+          
         </div>
-        
-      </div>
       </div>  
 
         {/* This is just to make sure that the flask and react are properly connected*/}
@@ -61,7 +72,6 @@ function App() {
           allowtransparency="true" 
           allow="encrypted-media">
         </iframe>   
-      </body>
     </div>
   );
 }
