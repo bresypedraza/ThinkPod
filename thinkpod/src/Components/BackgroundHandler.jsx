@@ -80,6 +80,15 @@ class BackgroundHandler{
         })
     }
 
+    async getAllThumnailAndVideos(){
+        const cozy = await this.getAmbienceVideosAndThumbnail();
+        const snow = await this.getSnowVideosAndThumbnail();
+        const ocean = await this.getOceanVideosAndThumbnail();
+        const space = await this.getSpaceVideosAndThumbnail();
+        const combined = [...cozy, ...snow, ...ocean, ...space];
+        return combined;
+    }
+
 
 }
 
@@ -107,7 +116,7 @@ const BackgroundSelection = ({setBackgroundVideo})=>{
 
     useEffect(() => {
         const videoHandler = new BackgroundHandler();
-        videoHandler.getAmbienceVideosAndThumbnail().then(setVideoAndThumbnail).catch(console.error);
+        videoHandler.getAllThumnailAndVideos().then(setVideoAndThumbnail).catch(console.error);
       }, []);
     return(
         <div className="grid grid-cols-4 gap-5">
