@@ -31,7 +31,7 @@ class BackgroundHandler{
      * @returns An array of URLs for AI Ambience videos fetched from the Pixabay API. 
      */
     async getSnowVideosAndThumbnail(){
-        const url = "https://pixabay.com/api/videos/?key="+BackgroundHandler.API_KEY+"&q=snow";
+        const url = "https://pixabay.com/api/videos/?key="+BackgroundHandler.API_KEY+"&q=winter";
         return fetch(url)
         .then(response =>{
             if(!response.ok){
@@ -80,13 +80,28 @@ class BackgroundHandler{
         })
     }
 
-    async getAllThumnailAndVideos(){
+    /**
+     * This is called the Fisher-Yates algorithm. It helps shuffle or randomized
+     * an array.
+     * @param {*} array 
+     * @returns a shuffled array
+     */
+    shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        }
+        return array;
+      }
+      
+    async getAllThumbnailAndVideos(){
         const cozy = await this.getAmbienceVideosAndThumbnail();
         const snow = await this.getSnowVideosAndThumbnail();
         const ocean = await this.getOceanVideosAndThumbnail();
         const space = await this.getSpaceVideosAndThumbnail();
         const combined = [...cozy, ...snow, ...ocean, ...space];
-        return combined;
+        console.log(this.shuffleArray(combined));
+        return this.shuffleArray(combined);
     }
 
 
@@ -111,27 +126,46 @@ const ChangeBackground = ({videoUrl})=>{
 
 
 
-const BackgroundSelection = ({setBackgroundVideo})=>{
+const BackgroundSelection = ({setBackgroundVideo, vidOptions})=>{
     const [videosAndThumbnail, setVideoAndThumbnail] = useState([]);
+
 
     useEffect(() => {
         const videoHandler = new BackgroundHandler();
-        videoHandler.getAllThumnailAndVideos().then(setVideoAndThumbnail).catch(console.error);
-      }, []);
-    return(
-        <div className="grid grid-cols-4 gap-5">
-            {videosAndThumbnail.map(([videoUrl, thumbnailUrl], index) => (
-                <img
-                className="h-48 w-60 object-cover rounded-md hover:scale-95"
-                key={index}
-                src={thumbnailUrl}
-                width={290}
-                height={400}
-                onClick={()=> setBackgroundVideo(videoUrl)}>
-                </img>
-            ))}
-        </div>
-    );
+
+        switch(vidOptions){
+            case "All":
+                vidOptions = videoHandler.getAllThumbnailAndVideos();
+                break;
+            case "Snow":
+                vidOptions= videoHandler.getSnowVideosAndThumbnail();
+                break;
+            case "Ocean":
+                vidOptions = videoHandler.getOceanVideosAndThumbnail();
+                break;
+            case "Cozy":
+                vidOptions = videoHandler.getAmbienceVideosAndThumbnail();
+                break;
+            case "Space":
+                vidOptions = videoHandler.getSpaceVideosAndThumbnail();
+                break;
+        }
+        vidOptions.then(setVideoAndThumbnail).catch(console.error);
+        }, [vidOptions]);
+        return(
+            <div className="grid grid-cols-4 gap-5">
+                {videosAndThumbnail.map(([videoUrl, thumbnailUrl], index) => (
+                    <img
+                    className="h-48 w-60 rounded-md hover:scale-95"
+                    key={index}
+                    src={thumbnailUrl}
+                    width={290}
+                    height={400}
+                    onClick={()=> setBackgroundVideo(videoUrl)}>
+                    </img>
+                ))}
+            </div>
+        );
 }
 
 export { ChangeBackground, BackgroundSelection };
