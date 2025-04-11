@@ -25,7 +25,7 @@ function App() {
     },[]);
 
   return (
-    <div className="App h-screen relative flex flex-col">
+    <div className="App h-screen flex flex-col">
       <header>
         <button className="bg-white text-black p-2 rounded-lg">
           Click me
@@ -34,8 +34,8 @@ function App() {
       </header>
       <Timer seconds={1500}/>
       <ChangeBackground videoUrl={backgroundVideo}/>
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="background_setting absolute w-1/2 h-1/2 bg-gray-rgba mt-[0px] bg-opacity-50 font-bold overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] rounded-xl p-5">
+      <div className="background_window flex items-center justify-center">
+        <div className="background_setting absolute bg-gray-rgba mt-[0px] bg-opacity-50 font-bold overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] rounded-xl p-5">
           <div className="ThemeSelector display flex gap-4">
             <div className="flex justify-center w-8 bg-soft-white rounded-md rounded p-1"  onClick={()=> {showBackgroundThemeOptions("All")}}> 
               All
@@ -57,18 +57,11 @@ function App() {
             <span  className="text-3xl flex justify-center m-4">Background Setting</span> 
           </div>
           <BackgroundSelection setBackgroundVideo={setBackgroundVideo} vidOptions={backgroundThemeOptions}/>
-          
         </div>
       </div>  
-
-        {/* This is just to make sure that the flask and react are properly connected*/}
-        <p>
-          The current time is {currentTime}.
-        </p>
-
         <iframe 
           src="https://open.spotify.com/embed/playlist/3cnkhyqinMpD5O6f6qh5l4?si=eOwrMAD9QAOzMID8wjluiQ" 
-          className="w-[500px] h-[100px] items-end"
+          className="w-[500px] h-[100px] p-[10px]"
           frameborder="0" 
           allowtransparency="true" 
           allow="encrypted-media">

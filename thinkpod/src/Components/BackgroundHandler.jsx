@@ -156,7 +156,7 @@ const BackgroundSelection = ({setBackgroundVideo, vidOptions})=>{
             <div className="grid grid-cols-4 gap-5">
                 {videosAndThumbnail.map(([videoUrl, thumbnailUrl], index) => (
                     <img
-                    className="h-48 w-60 rounded-md hover:scale-95"
+                    className="h-40 w-45 rounded-md hover:scale-95"
                     key={index}
                     src={thumbnailUrl}
                     width={290}
