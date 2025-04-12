@@ -5,37 +5,24 @@ import { Navigation } from './Components/NavBar.jsx';
 import { BackgroundSelection, ChangeBackground } from './Components/BackgroundHandler.jsx';
 
 
-
 function App() {
-  let width = window.innerWidth;
-  let height = window.innerHeight;
 
-  {/*These are states that will be updated in the website.*/}
-  const[currentTime, setCurrentTime] = useState(1);
+  /*These are states that will be updated in the website.*/
   const [showBackgroundVideo, setBackgroundVideo] = useState(null);
   const[showBackgroundThemeOptions, setBackgroundThemeOptions] = useState("All");
   const [showTimer, setShowTimer] = useState(false);
   const [showBgSelector, setShowBgSelector] = useState(false);
   const [showSpotify, setSpotify] = useState(false);
   const [showAccountProfile, setAccountProfile] = useState(false);
+
   
-
-  useEffect(() => {
-    
-    fetch('http://127.0.0.1:5000/time')
-      .then(res => res.json())
-      .then(data => {
-        setCurrentTime(data.time);
-    });
-
-    },[]);
 
   return (
     <div className="App h-screen flex flex-col">
-      <header>
-        <button className="bg-white text-black p-2 rounded-lg">
-          Click me
-        </button>
+
+      {/*Header with styling*/}
+      <header className = "h-[8%] font-gruppo flex justify-start text-4xl text-white p-2">
+        ThinkPod 
         <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet"></link>
       </header>
 

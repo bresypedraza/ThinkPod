@@ -13,6 +13,9 @@ module.exports = {
         'gray-rgba': 'rgba(245,228,204,0.5)',
         'soft-white': 'rgba(255, 255, 255, 1)'
       },
+      fontFamily:{
+        gruppo: ['Gruppo']
+      }
     },
   },
   plugins: [],
