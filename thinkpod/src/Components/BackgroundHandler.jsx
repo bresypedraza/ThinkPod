@@ -108,7 +108,6 @@ class BackgroundHandler{
 }
 
 const ChangeBackground = ({videoUrl})=>{
-    console.log(videoUrl); 
     return(
         <div className="relative screen w-full h-screen overflow-hidden">
             {videoUrl && (

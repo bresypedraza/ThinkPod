@@ -12,11 +12,12 @@ function App() {
 
   {/*These are states that will be updated in the website.*/}
   const[currentTime, setCurrentTime] = useState(1);
-  const [backgroundVideo, setBackgroundVideo] = useState(null);
-  const[backgroundThemeOptions, showBackgroundThemeOptions] = useState("All");
+  const [showBackgroundVideo, setBackgroundVideo] = useState(null);
+  const[showBackgroundThemeOptions, setBackgroundThemeOptions] = useState("All");
   const [showTimer, setShowTimer] = useState(false);
   const [showBgSelector, setShowBgSelector] = useState(false);
   const [showSpotify, setSpotify] = useState(false);
+  const [showAccountProfile, setAccountProfile] = useState(false);
   
 
   useEffect(() => {
@@ -50,37 +51,37 @@ function App() {
 
       {/* Background Selector */} 
         {/* Always Display Background */}
-        <ChangeBackground videoUrl={backgroundVideo} />
+        <ChangeBackground videoUrl={showBackgroundVideo} />
         <div 
           style={{
           opacity: showBgSelector ? 1 : 0, 
           pointerEvents: showBgSelector ? 'auto' : 'none',
         }}>
           <div>
-          <ChangeBackground videoUrl={backgroundVideo}/>
+          <ChangeBackground videoUrl={showBackgroundVideo}/>
           <div className="background_window flex items-center justify-center">
             <div className="background_setting absolute bg-gray-rgba mt-[0px] bg-opacity-50 font-bold overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] rounded-xl p-5">
               <div className="ThemeSelector display flex gap-4">
-                <div className="flex justify-center w-8 bg-soft-white rounded-md rounded p-1"  onClick={()=> {showBackgroundThemeOptions("All")}}> 
+                <div className="w-8 bg-soft-white rounded-md rounded p-1"  onClick={()=> {setBackgroundThemeOptions("All")}}> 
                   All
                 </div>
-                <div className="flex justify-center w-8 bg-soft-white rounded-md rounded p-1" onClick={()=> {showBackgroundThemeOptions("Snow")}}>
+                <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={()=> {setBackgroundThemeOptions("Snow")}}>
                   <i class="em em-snowman" aria-role="presentation" aria-label=""></i>
                 </div>
-                <div className="flex justify-center w-8 bg-soft-white rounded-md rounded p-1" onClick={()=> {showBackgroundThemeOptions("Ocean")}}>
+                <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={()=> {setBackgroundThemeOptions("Ocean")}}>
                   <i class="em em-ocean" aria-role="presentation" aria-label="WATER WAVE"></i>
                 </div>
-                <div className="flex justify-center w-8 bg-soft-white rounded-md rounded p-1" onClick={()=> {showBackgroundThemeOptions("Cozy")}}>
+                <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={()=> {setBackgroundThemeOptions("Cozy")}}>
                   <i class="em em-couch_and_lamp" aria-role="presentation" aria-label=""></i>
                 </div>
-                <div className="flex justify-center w-8 bg-soft-white rounded-md rounded p-1" onClick={()=> {showBackgroundThemeOptions("Space")}}>
+                <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={()=> {setBackgroundThemeOptions("Space")}}>
                   <i class="em em-milky_way" aria-role="presentation" aria-label="MILKY WAY"></i>
                 </div>
               </div>
               <div> 
                 <span className="text-3xl flex justify-center m-4">Background Setting</span> 
               </div>
-            <BackgroundSelection setBackgroundVideo={setBackgroundVideo} vidOptions={backgroundThemeOptions}/>
+            <BackgroundSelection setBackgroundVideo={setBackgroundVideo} vidOptions={showBackgroundThemeOptions}/>
           </div>
           </div>
         </div>
@@ -104,7 +105,7 @@ function App() {
       </div>
 
       {/* Navigation Bar */}
-      <Navigation toggleTimer={() => setShowTimer(prev => !prev)} toggleBgSelector={() => setShowBgSelector(prev => !prev)} toggleSpotify={() => setSpotify(prev => !prev)} />
+      <Navigation toggleTimer={() => setShowTimer(prev => !prev)} toggleBgSelector={() => setShowBgSelector(prev => !prev)} toggleSpotify={() => setSpotify(prev => !prev)} toggleAccountProfile={()=> setAccountProfile(prev => !prev)}/>
     </div>
   );
 }
