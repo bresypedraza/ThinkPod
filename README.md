@@ -44,6 +44,7 @@ Another thing to check is the `package.json`:
   … cd ../thinkpod
   … ThinkPod % npm install -g concurrently
   … thinkpod % npm install concurrently --save-dev
+  … thinkpod % npm install react-icons
 
 3) Run it
   … npm start
