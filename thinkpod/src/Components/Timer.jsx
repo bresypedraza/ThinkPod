@@ -42,8 +42,6 @@ export function Timer({seconds}) {
         setIsActive(false);
         setCountdown(1500);
     }
-
-    console.log('RENDERED!');
     
     return(
     <div className='Timer'>
@@ -51,11 +49,11 @@ export function Timer({seconds}) {
             <div className='display font-bold text-center text-5xl p-10 opacity-90'>{formatTime(countdown)}</div>
             <div className='controls flex-col text-center font-sans'>
                 {!isActive ? (
-                    <button onClick={handleStart} className='start-button bg-green-500 rounded m-2 w-[40px] h-[40px]'>Start</button>
+                    <button onClick={handleStart} className='start-button bg-green-500 rounded m-2 w-[40px] h-[40px] hover:bg-green-700'>Start</button>
                 ) : (
-                    <button onClick={handleStop} className='stop-button bg-red-500 rounded m-2 w-[40px] h-[40px]'>Stop</button>
+                    <button onClick={handleStop} className='stop-button bg-red-500 rounded m-2 w-[40px] h-[40px] hover:bg-red-700'>Stop</button>
                 )}
-                <button onClick={handleReset} className='reset-button bg-gray-400 rounded m-2 w-[40px] h-[40px]'>Reset</button>
+                <button onClick={handleReset} className='reset-button bg-gray-400 rounded m-2 w-[40px] h-[40px] hover:bg-gray-700'>Reset</button>
             </div>
         </div>
     </div>)

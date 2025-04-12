@@ -1,6 +1,7 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
 import {Timer} from'./Components/Timer.jsx';
+import { Navigation } from './Components/NavBar.jsx';
 import { BackgroundSelection, ChangeBackground } from './Components/BackgroundHandler.jsx';
 
 
@@ -65,7 +66,8 @@ function App() {
           frameborder="0" 
           allowtransparency="true" 
           allow="encrypted-media">
-        </iframe>   
+        </iframe> 
+        <Navigation></Navigation> 
     </div>
   );
 }
