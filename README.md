@@ -5,11 +5,6 @@ Make sure to have these packages installed if you wish to run this repo on your 
 - yarn 
 - python 
 - tailwind
-- npm install axios@0.24.0
-
-Run these installations first
-- pip install flask-cors
-- pip install python-dotenv
 
 To get npm start to activate both front and back end (with the 4 neccessary terminal command lines): 
 1) Make sure that flask_cors is installed in your venv 
@@ -20,6 +15,7 @@ To get npm start to activate both front and back end (with the 4 neccessary term
   (venv) … flaskAPI % pip install flask_cors
   (venv) … flaskAPI % pip install flask-cors python-dotenv
   (venv) ... flaskAPI % pip install Flask flask-jwt-extended
+  (venv) ... flaskAPI % pip install flask flask-sqlalchemy
 
 **Windows**
   … flaskAPI % <venvname>\Scripts\activate
@@ -44,9 +40,10 @@ Another thing to check is the `package.json`:
 
 2) make sure concurrently is installed (globally and in the front end) 
   … cd ../thinkpod
-  … ThinkPod % npm install -g concurrently
+  … thinkPod % npm install -g concurrently
   … thinkpod % npm install concurrently --save-dev
   … thinkpod % npm install react-icons
+  ... thinkpod % npm install axios@0.24.0
 
 3) Run it
   … npm start
