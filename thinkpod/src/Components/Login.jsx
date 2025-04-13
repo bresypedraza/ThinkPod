@@ -5,9 +5,8 @@ import axios from 'axios';
 export function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [showCreateAccount, setShowCreateAccount] = useState(false); // New state to toggle the form
+  const [showCreateAccount, setShowCreateAccount] = useState(false); 
 
-  // Handle login
   const handleLogin = async () => {
     try {
       const response = await axios.post('http://127.0.0.1:5000/login', { username, password });
@@ -18,7 +17,6 @@ export function Login() {
     }
   };
 
-  // Handle create account
   const createAccount = async () => {
     try {
       const response = await axios.post('http://127.0.0.1:5000/createAccount', {
@@ -31,7 +29,6 @@ export function Login() {
     }
   };
 
-  // Toggle the form visibility
   const toggleCreateAccountForm = () => {
     setShowCreateAccount(!showCreateAccount);
   };
