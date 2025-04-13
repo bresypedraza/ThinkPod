@@ -1,6 +1,6 @@
 import './App.css';
-import React, {useState, useEffect} from 'react';
-import {Timer} from'./Components/Timer.jsx';
+import React, { useState, useEffect } from 'react';
+import { Timer } from './Components/Timer.jsx';
 import { Navigation } from './Components/NavBar.jsx';
 import { BackgroundSelection, ChangeBackground } from './Components/BackgroundHandler.jsx';
 import BackgroundHandler from './Components/BackgroundHandler.jsx';
@@ -11,7 +11,7 @@ function App() {
 
   /*These are states that will be updated in the website.*/
   const [showBackgroundVideo, setBackgroundVideo] = useState(null);
-  useEffect(()=>{
+  useEffect(() => {
     async function fetchDefaultBg() {
       const bgHandler = new BackgroundHandler();
       const [[videoUrl]] = await bgHandler.getDefaultBackground()
@@ -19,21 +19,21 @@ function App() {
     }
 
     fetchDefaultBg();
-  },[])
-  const[showBackgroundThemeOptions, setBackgroundThemeOptions] = useState("All");
+  }, [])
+  const [showBackgroundThemeOptions, setBackgroundThemeOptions] = useState("All");
   const [showTimer, setShowTimer] = useState(false);
   const [showBgSelector, setShowBgSelector] = useState(false);
   const [showSpotify, setSpotify] = useState(false);
   const [showAccountProfile, setAccountProfile] = useState(false);
 
-  
+
 
   return (
     <div className="App h-screen flex flex-col">
 
       {/*Header with styling*/}
-      <header className = "title h-[8%] flex justify-start text-4xl text-white p-2">
-      <FaLightbulb /> ThinkPod 
+      <header className="title h-[8%] flex justify-start text-4xl text-white p-2">
+        <FaLightbulb /> ThinkPod
         <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet"></link>
       </header>
 
@@ -47,43 +47,42 @@ function App() {
         <Timer seconds={1500} />
       </div>
 
-      {/* Background Selector */} 
+      {/* Background Selector */}
         {/* Always Display Background */}
-
-        <ChangeBackground videoUrl={showBackgroundVideo} />
-        <div 
-          style={{
-          opacity: showBgSelector ? 1 : 0, 
+      <ChangeBackground videoUrl={showBackgroundVideo} />
+      <div
+        style={{
+          opacity: showBgSelector ? 1 : 0,
           pointerEvents: showBgSelector ? 'auto' : 'none',
         }}>
-          <div>
+        <div>
           <div className="background_window flex items-center justify-center">
             <div className="background_setting absolute bg-gray-rgba mt-[0px] bg-opacity-50 font-bold overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] rounded-xl p-5">
               <div className="ThemeSelector display flex gap-4">
-                <div className="w-8 bg-soft-white rounded-md rounded p-1"  onClick={()=> {setBackgroundThemeOptions("All")}}> 
+                <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={() => { setBackgroundThemeOptions("All") }}>
                   All
                 </div>
-                <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={()=> {setBackgroundThemeOptions("Snow")}}>
+                <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={() => { setBackgroundThemeOptions("Snow") }}>
                   <i class="em em-snowman" aria-role="presentation" aria-label=""></i>
                 </div>
-                <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={()=> {setBackgroundThemeOptions("Ocean")}}>
+                <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={() => { setBackgroundThemeOptions("Ocean") }}>
                   <i class="em em-ocean" aria-role="presentation" aria-label="WATER WAVE"></i>
                 </div>
-                <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={()=> {setBackgroundThemeOptions("Cozy")}}>
+                <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={() => { setBackgroundThemeOptions("Cozy") }}>
                   <i class="em em-couch_and_lamp" aria-role="presentation" aria-label=""></i>
                 </div>
-                <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={()=> {setBackgroundThemeOptions("Space")}}>
+                <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={() => { setBackgroundThemeOptions("Space") }}>
                   <i class="em em-milky_way" aria-role="presentation" aria-label="MILKY WAY"></i>
                 </div>
               </div>
-              <div> 
-                <span className="text-3xl flex justify-center m-4">Background Setting</span> 
+              <div>
+                <span className="text-3xl flex justify-center m-4">Background Setting</span>
               </div>
-            <BackgroundSelection setBackgroundVideo={setBackgroundVideo} vidOptions={showBackgroundThemeOptions}/>
-          </div>
+              <BackgroundSelection setBackgroundVideo={setBackgroundVideo} vidOptions={showBackgroundThemeOptions} />
+            </div>
           </div>
         </div>
-        </div>
+      </div>
 
       {/* Spotify Embed */}
       <div
@@ -93,17 +92,17 @@ function App() {
           pointerEvents: showSpotify ? 'auto' : 'none',
         }}
       >
-      <iframe
+        <iframe
           src="https://open.spotify.com/embed/playlist/3cnkhyqinMpD5O6f6qh5l4?si=eOwrMAD9QAOzMID8wjluiQ"
           className="w-[500px] h-[100px] p-[10px]"
           allowtransparency="true"
           allow="encrypted-media"
           title="Spotify Embed"
-      ></iframe>
+        ></iframe>
       </div>
 
       {/* Navigation Bar */}
-      <Navigation toggleTimer={() => setShowTimer(prev => !prev)} toggleBgSelector={() => setShowBgSelector(prev => !prev)} toggleSpotify={() => setSpotify(prev => !prev)} toggleAccountProfile={()=> setAccountProfile(prev => !prev)}/>
+      <Navigation toggleTimer={() => setShowTimer(prev => !prev)} toggleBgSelector={() => setShowBgSelector(prev => !prev)} toggleSpotify={() => setSpotify(prev => !prev)} toggleAccountProfile={() => setAccountProfile(prev => !prev)} />
     </div>
   );
 }
