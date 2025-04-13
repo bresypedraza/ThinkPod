@@ -7,7 +7,7 @@ Make sure to have these packages installed if you wish to run this repo on your 
 - tailwind
 
 To get npm start to activate both front and back end (with the 4 neccessary terminal command lines): 
-1) Make sure that flask_cors is installed in your venv 
+1) Make sure all proper packages are installed in your venv 
   … cd flaskAPI
 
 **Mac**

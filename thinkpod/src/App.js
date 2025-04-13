@@ -4,7 +4,8 @@ import {Timer} from'./Components/Timer.jsx';
 import { Navigation } from './Components/NavBar.jsx';
 import { BackgroundSelection, ChangeBackground } from './Components/BackgroundHandler.jsx';
 import BackgroundHandler from './Components/BackgroundHandler.jsx';
-import { FaLightbulb } from "react-icons/fa6";
+import { FaLightbulb } from "react-icons/fa6"; 
+import {Login} from './Components/Login.jsx';
 
 
 function App() {
@@ -100,6 +101,16 @@ function App() {
           allow="encrypted-media"
           title="Spotify Embed"
       ></iframe>
+      </div>
+      
+      {/* Login Popup */}
+      <div className=
+        {`fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm 
+        ${showAccountProfile ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} 
+        transition-opacity duration-300`}>
+        <div className = "login_window" >
+        <Login />
+        </div>
       </div>
 
       {/* Navigation Bar */}

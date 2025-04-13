@@ -1,9 +1,3 @@
-""" 
-NEED TO ADD: 
-- password encryption 
-- way to formulate user ids and add them to the db in create() 
-"""
-import time
 from flask import Flask, request,jsonify
 
 #import statements for the port syncing
@@ -13,12 +7,11 @@ from dotenv import load_dotenv
 
 #import statements for the database
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Integer, String, JSON 
+from sqlalchemy import String, JSON 
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 #import statements for user login 
 from flask_jwt_extended import create_access_token, JWTManager
-
 
 #needed to make sure that the environment variables like CLIENT_URL load
 load_dotenv()
@@ -47,10 +40,8 @@ jwt = JWTManager(app)
 #Defining the User model using 'Mapped" and "mapped_column"
 class User(db.Model):
     __tablename__ = "users"
-
-    username: Mapped[int] = mapped_column(String, primary_key=True)
+    username: Mapped[str] = mapped_column(String, primary_key=True)
     password: Mapped[str] = mapped_column(String, nullable=False)
-    name: Mapped[str] = mapped_column(String, nullable = False)
     backgroundURL: Mapped[str] = mapped_column(String, nullable=True)
     toDoList: Mapped[JSON] = mapped_column(JSON, nullable=True)
 
@@ -60,19 +51,19 @@ class Database:
         pass
     
     """ Adding a new user to the database"""
-    def createUser(self, username:str, password:str, name:str):
-        newUser = User(username=username, password=password, name=name)
+    def createUser(self, username:str, password:str):
+        newUser = User(username=username, password=password)
         db.session.add(newUser)
         db.session.commit() 
 
     """ Retrieving all the informations of a user via their ID"""
-    def get(self, userID: int):
-        if userID:
-            return db.session.get(User, userID)
+    def get(self, username: str):
+        if username:
+            return db.session.get(User, username)
       
     """ Updating the background preference of a user """
-    def updateBackgroundPreferences(self, userID:int, backgroundURL: str):
-        user = self.get(userID)
+    def updateBackgroundPreferences(self, username: str, backgroundURL: str):
+        user = self.get(username)
         if user: 
             user.backgroundURL = backgroundURL
             db.session.commit() 
@@ -82,6 +73,10 @@ class Database:
         
 #Creating a database manager
 db_manager = Database() 
+
+#creates database table if it doesn't exist
+with app.app_context():
+    db.create_all()
 
 #ROUTES
 @app.route('/login',methods=['POST'])
@@ -94,16 +89,25 @@ def login():
         return jsonify(access_token=access_token)
     return jsonify({"message":"Invalid credentials"}), 401
 
+@app.route('/createAccount', methods=['POST'])
+def createAccount():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    
+    if User.query.filter_by(username=username).first():
+        return jsonify({"message": "Username already exists"}), 409
+    
+    db_manager.createUser(username=username, password=password)
+    return jsonify({"message": "Account created successfully"}), 201
+
 @app.route('/toDoList')
+def toDoList():
+    pass 
 
 @app.route('/background')
-
-
-# A dummy route to make sure that the flask and the front end are communicating correctly
-@app.route('/time')
-def getCurrentTime():
-    return {'time': time.time()}
-
+def background():
+    pass
 
 if __name__ == '__main__':
     with app.app_context():
