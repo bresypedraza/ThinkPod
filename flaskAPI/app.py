@@ -24,7 +24,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config["JWT_SECRET_KEY"] ='supposedToBeARandomSecretKey'
 
 #for deployment the URL needs to be set to the actual domain name!!
-CORS(app, origins=os.getenv("CLIENT_URL","http://localhost:3000"))
+CORS(app, origins=[os.getenv("CLIENT_URL", "http://localhost:3000")], supports_credentials=True)
 
 #Initialize SQLAlchemy with Declarative Base
 class Base(DeclarativeBase):
@@ -86,7 +86,10 @@ def login():
     user = User.query.filter_by(username=username).first()
     if user and user.password == password:
         access_token = create_access_token(identity=username)
-        return jsonify(access_token=access_token)
+        response = jsonify(access_token=access_token)
+        response.headers.add("Access-Control-Allow-Origin", os.getenv("CLIENT_URL", "http://localhost:3000"))
+        response.headers.add("Access-Control-Allow-Credentials", "true")
+        return response
     return jsonify({"message":"Invalid credentials"}), 401
 
 @app.route('/createAccount', methods=['POST'])
