@@ -5,7 +5,9 @@
 body{
   overflow: hidden;
 }
-
+.title{
+  font-family: 'PixelFont', monospace;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

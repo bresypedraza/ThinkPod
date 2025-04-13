@@ -3,12 +3,23 @@ import React, {useState, useEffect} from 'react';
 import {Timer} from'./Components/Timer.jsx';
 import { Navigation } from './Components/NavBar.jsx';
 import { BackgroundSelection, ChangeBackground } from './Components/BackgroundHandler.jsx';
+import BackgroundHandler from './Components/BackgroundHandler.jsx';
+import { FaLightbulb } from "react-icons/fa6";
 
 
 function App() {
 
   /*These are states that will be updated in the website.*/
   const [showBackgroundVideo, setBackgroundVideo] = useState(null);
+  useEffect(()=>{
+    async function fetchDefaultBg() {
+      const bgHandler = new BackgroundHandler();
+      const [[videoUrl]] = await bgHandler.getDefaultBackground()
+      setBackgroundVideo(videoUrl);
+    }
+
+    fetchDefaultBg();
+  },[])
   const[showBackgroundThemeOptions, setBackgroundThemeOptions] = useState("All");
   const [showTimer, setShowTimer] = useState(false);
   const [showBgSelector, setShowBgSelector] = useState(false);
@@ -21,8 +32,8 @@ function App() {
     <div className="App h-screen flex flex-col">
 
       {/*Header with styling*/}
-      <header className = "h-[8%] font-gruppo flex justify-start text-4xl text-white p-2">
-        ThinkPod 
+      <header className = "title h-[8%] flex justify-start text-4xl text-white p-2">
+      <FaLightbulb /> ThinkPod 
         <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet"></link>
       </header>
 
@@ -38,6 +49,7 @@ function App() {
 
       {/* Background Selector */} 
         {/* Always Display Background */}
+
         <ChangeBackground videoUrl={showBackgroundVideo} />
         <div 
           style={{
@@ -45,7 +57,6 @@ function App() {
           pointerEvents: showBgSelector ? 'auto' : 'none',
         }}>
           <div>
-          <ChangeBackground videoUrl={showBackgroundVideo}/>
           <div className="background_window flex items-center justify-center">
             <div className="background_setting absolute bg-gray-rgba mt-[0px] bg-opacity-50 font-bold overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] rounded-xl p-5">
               <div className="ThemeSelector display flex gap-4">

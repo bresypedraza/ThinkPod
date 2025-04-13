@@ -80,6 +80,20 @@ class BackgroundHandler{
         })
     }
 
+    async getDefaultBackground(){
+        const url = "https://pixabay.com/api/videos/?key="+BackgroundHandler.API_KEY+"&id=192283";
+        return fetch(url)
+        .then(response =>{
+            if(!response.ok){
+                throw new Error("Fail to get videos");
+            }
+            return response.json();
+        })
+        .then(data=>{
+                return data.hits.map(hit=>[hit.videos.medium.url, hit.videos.small.thumbnail]);
+        })
+    }
+
     /**
      * This is called the Fisher-Yates algorithm. It helps shuffle or randomized
      * an array.
@@ -95,13 +109,13 @@ class BackgroundHandler{
       }
       
     async getAllThumbnailAndVideos(){
+        const ogBackground = await this.getDefaultBackground();
         const cozy = await this.getAmbienceVideosAndThumbnail();
         const snow = await this.getSnowVideosAndThumbnail();
         const ocean = await this.getOceanVideosAndThumbnail();
         const space = await this.getSpaceVideosAndThumbnail();
         const combined = [...cozy, ...snow, ...ocean, ...space];
-        console.log(this.shuffleArray(combined));
-        return this.shuffleArray(combined);
+        return [...ogBackground, ...this.shuffleArray(combined)];
     }
 
 
@@ -167,5 +181,6 @@ const BackgroundSelection = ({setBackgroundVideo, vidOptions})=>{
         );
 }
 
+export default BackgroundHandler;
 export { ChangeBackground, BackgroundSelection };
 
