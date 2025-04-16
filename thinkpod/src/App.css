@@ -13,11 +13,6 @@ body{
   pointer-events: none;
 }
 
-.background_setting{
-  width: 37%;
-  height:53%;
-  top:100px;
-}
 /* iframe{
   margin-bottom: 200px;
 } */
@@ -44,4 +39,26 @@ body{
   to {
     transform: rotate(360deg);
   }
+}
+
+.saveButton {
+  background-color: #f3f7fe;
+  color: #4986e9;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 92px;
+  height: 35px;
+  transition: 0.3s;
+}
+
+.saveButton:hover {
+  background-color: #2cc06a;
+  box-shadow: 0 0 0 5px #3b83f65f;
+  color: #fff;
+}
+
+
+iframe{
+  margin-bottom:100px;
 }

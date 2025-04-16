@@ -166,7 +166,7 @@ const BackgroundSelection = ({setBackgroundVideo, vidOptions})=>{
         vidOptions.then(setVideoAndThumbnail).catch(console.error);
         }, [vidOptions]);
         return(
-            <div className="grid grid-cols-4 gap-5">
+            <div className="grid sm:grid-cols-4 gap-5 grid-cols-2">
                 {videosAndThumbnail.map(([videoUrl, thumbnailUrl], index) => (
                     <img
                     className="h-40 w-45 rounded-md hover:scale-95"
@@ -176,11 +176,11 @@ const BackgroundSelection = ({setBackgroundVideo, vidOptions})=>{
                     height={400}
                     onClick={()=> setBackgroundVideo(videoUrl)}>
                     </img>
-                ))}
+                ))}   
             </div>
         );
 }
 
 export default BackgroundHandler;
 export { ChangeBackground, BackgroundSelection };
-
+  

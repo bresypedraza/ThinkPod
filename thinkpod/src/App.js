@@ -56,10 +56,10 @@ function App() {
           opacity: showBgSelector ? 1 : 0,
           pointerEvents: showBgSelector ? 'auto' : 'none',
         }}>
-        <div>
           <div className="background_window flex items-center justify-center">
-            <div className="background_setting absolute bg-gray-rgba mt-[0px] bg-opacity-50 font-bold overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] rounded-xl p-5">
-              <div className="ThemeSelector display flex gap-4">
+            <div className="background_setting absolute bg-gray-rgba mt-[0px] bg-opacity-50 font-bold overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] 
+            [scrollbar-width:'none'] rounded-xl p-5 sm:w-[37%] w-[90%] sm:top-[100px] h-[53%] top-[200px]">
+              <div className="ThemeSelector grid grid-flow-col  gap-1 sm:gap-4 grid-cols-[auto_auto_auto_auto_1fr] sm:grid-cols-[auto_auto_auto_auto_1fr]">
                 <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={() => { setBackgroundThemeOptions("All") }}>
                   All
                 </div>
@@ -75,19 +75,21 @@ function App() {
                 <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={() => { setBackgroundThemeOptions("Space") }}>
                   <i class="em em-milky_way" aria-role="presentation" aria-label="MILKY WAY"></i>
                 </div>
+                <button className="saveButton text-xs ">
+                    Save
+                </button>
               </div>
               <div>
                 <span className="text-3xl flex justify-center m-4">Background Setting</span>
               </div>
-              <BackgroundSelection setBackgroundVideo={setBackgroundVideo} vidOptions={showBackgroundThemeOptions} />
+                <BackgroundSelection setBackgroundVideo={setBackgroundVideo} vidOptions={showBackgroundThemeOptions} />
             </div>
           </div>
-        </div>
       </div>
 
       {/* Spotify Embed */}
       <div
-        className="fixed bottom-0 left-0 z-50"
+        className=" i fixed bottom-0 left-0 z-50"
         style={{
           display: showSpotify ? 'block' : 'none',
           pointerEvents: showSpotify ? 'auto' : 'none',
