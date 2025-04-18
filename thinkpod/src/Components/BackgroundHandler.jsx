@@ -166,7 +166,7 @@ export const BackgroundSelection = ({setBackgroundVideo, vidOptions})=>{
         vidOptions.then(setVideoAndThumbnail).catch(console.error);
         }, [vidOptions]);
         return(
-            <div className="grid gap-3 md:grid-cols-3 grid-cols-2">
+            <div className="grid gap-3 md:grid-cols-3 grid-cols-2 cursor-pointer">
                 {videosAndThumbnail.map(([videoUrl, thumbnailUrl], index) => (
                     <img
                     className="h-40 sm:w-30 w-50 rounded-md hover:scale-95"
