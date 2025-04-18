@@ -36,7 +36,7 @@ function App() {
 
       {/*Header with styling*/}
       <header className="title h-[8%] flex justify-start text-4xl text-white p-2">
-        <FaLightbulb /> ThinkPod
+        <FaLightbulb className='text-yellow-400'/> ThinkPod
         <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet"></link>
       </header>
 
