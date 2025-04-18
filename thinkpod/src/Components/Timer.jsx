@@ -67,11 +67,10 @@ export function Timer({ seconds }) {
 
     return (
         <div className="p-2 flex justify-end font-gruppo">
-            <div className="bg-[rgba(128,128,128,0.5)] bg-opacity-50 rounded-lg drop-shadow p-6 w-72 flex flex-col items-center text-2xl">
+            <div className="bg-[rgba(128,128,128,0.5)] bg-opacity-50 rounded-lg drop-shadow p-6 md:w-72 flex flex-col items-center text-2xl">
                 <div className="text-5xl font-bold text-center text-white mb-4 opacity-90">
                     {formatTime(countdown)}
                 </div>
-
                 <div className="flex flex-row gap-4 w-full justify-center">
                     {!isActive && !hasFinished ? (
                         <button

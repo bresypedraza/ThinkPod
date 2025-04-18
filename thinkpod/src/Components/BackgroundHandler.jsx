@@ -3,7 +3,7 @@ import React, { useState, useEffect, use } from 'react';
 /**
  * A class that uses the Pixabay API to fetch all the videos that the website needs for background settings. 
  */
-class BackgroundHandler{
+export default class BackgroundHandler{
 
     static API_KEY = "49493386-996644cb7f2c9f25700dce247";
 
@@ -121,12 +121,12 @@ class BackgroundHandler{
 
 }
 
-const ChangeBackground = ({videoUrl})=>{
+export const ChangeBackground = ({videoUrl})=>{
     return(
-        <div className="relative screen w-full h-screen overflow-hidden">
+        <div className="relative  w-full h-screen overflow-hidden">
             {videoUrl && (
                 <video
-                className="fixed bottom-0 min-w-full min-h-full z-[-1]  "
+                className="fixed bottom-0 min-w-full min-h-full object-cover z-[-1]  "
                 src={videoUrl}
                 muted = {true}
                 autoPlay= {true}
@@ -139,7 +139,7 @@ const ChangeBackground = ({videoUrl})=>{
 
 
 
-const BackgroundSelection = ({setBackgroundVideo, vidOptions})=>{
+export const BackgroundSelection = ({setBackgroundVideo, vidOptions})=>{
     const [videosAndThumbnail, setVideoAndThumbnail] = useState([]);
 
 
@@ -166,10 +166,10 @@ const BackgroundSelection = ({setBackgroundVideo, vidOptions})=>{
         vidOptions.then(setVideoAndThumbnail).catch(console.error);
         }, [vidOptions]);
         return(
-            <div className="grid sm:grid-cols-4 gap-5 grid-cols-2">
+            <div className="grid gap-3 md:grid-cols-3 grid-cols-2">
                 {videosAndThumbnail.map(([videoUrl, thumbnailUrl], index) => (
                     <img
-                    className="h-40 w-45 rounded-md hover:scale-95"
+                    className="h-40 sm:w-30 w-50 rounded-md hover:scale-95"
                     key={index}
                     src={thumbnailUrl}
                     width={290}
@@ -181,6 +181,4 @@ const BackgroundSelection = ({setBackgroundVideo, vidOptions})=>{
         );
 }
 
-export default BackgroundHandler;
-export { ChangeBackground, BackgroundSelection };
   
