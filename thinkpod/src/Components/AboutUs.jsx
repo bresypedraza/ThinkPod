@@ -32,7 +32,7 @@ export function AboutUs(){
                 <GiMeditation  className='mt-1 w-6 h-6 text-purple-600'/>
                 <p className='font-bold mt-1 ml-2 text-xl font-gruppo'> Greater Awareness</p>
             </div>
-            <p className='flex justify-start  text-justify mt-1 text-xl font-gruppo'><small> Students reported becoming more aware  <br></br> of their own study habits. Better self-monitoring and goal-setting behavior.</small></p>
+            <p className='flex justify-start mt-1 text-xl font-gruppo'><small> Students reported becoming more aware of their <br></br> own study habits. Better self-monitoring overall.</small></p>
         </div>
     </div>
     )

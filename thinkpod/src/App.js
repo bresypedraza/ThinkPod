@@ -115,7 +115,8 @@ function App() {
         <Login />
         </div>
       </div>
-
+      
+      {/* About Us Popup*/}
       <div className=
         {`fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm
         ${showAboutUs ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} 
