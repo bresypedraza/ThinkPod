@@ -22,9 +22,9 @@ export function Navigation({ toggleBgSelector, toggleSpotify, toggleAccountProfi
                     <MdAccountCircle className="Account_Profile w-6 h-6" />
                 </button>
                 <button onClick={toDoList} className="text-gray-600 hover:text-blue-500">
-                <LuNotepadText className="Todo w-6 h-6"/>
-            </button>
-            <button onClick={aboutUs} className="text-gray-600 hover:text-blue-500">
+                    <LuNotepadText className="Todo w-6 h-6"/>
+                </button>
+                <button onClick={aboutUs} className="text-gray-600 hover:text-blue-500">
                     <FaRegQuestionCircle className="About_Us w-6 h-6" />
                 </button>
             </nav>
