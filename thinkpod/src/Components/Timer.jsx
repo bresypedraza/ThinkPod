@@ -1,14 +1,16 @@
-// ----- Timer Component ----- //
-
 import React, { useState, useEffect, useRef } from 'react';
 import alarm from './chiptune-alarm-clock.mp3';
 
-export function Timer({ seconds }) {
+export function Timer({ seconds, opacity = 0.5, hidden = false, mode = 'study' }) {
     const [countdown, setCountdown] = useState(seconds);
     const [isActive, setIsActive] = useState(false);
     const [hasFinished, setHasFinished] = useState(false);
     const intervalRef = useRef(null);
     const audioRef = useRef(null);
+
+    useEffect(() => {
+        setCountdown(seconds);
+    }, [seconds]);
 
     useEffect(() => {
         if (countdown === 0) {
@@ -31,11 +33,9 @@ export function Timer({ seconds }) {
         return () => clearInterval(intervalRef.current);
     }, [isActive]);
 
-
     const formatTime = (time) => {
         let minutes = Math.floor(time / 60);
         let seconds = Math.floor(time - minutes * 60);
-
         if (minutes < 10) minutes = '0' + minutes;
         if (seconds < 10) seconds = '0' + seconds;
         return minutes + ":" + seconds;
@@ -65,14 +65,27 @@ export function Timer({ seconds }) {
         }
     }
 
+    const emoji = mode === 'study' ? '📚' : '💤';
+
     return (
         <div className="p-2 flex justify-end font-gruppo">
-            <div className="bg-[rgba(128,128,128,0.5)] bg-opacity-50 rounded-lg drop-shadow p-6 md:w-72 flex flex-col items-center text-2xl">
-                <div className="text-5xl font-bold text-center text-white mb-4 opacity-90">
+            <div
+                className="rounded-lg drop-shadow shadow-md p-6 md:w-72 flex flex-col items-center text-2xl"
+                style={{
+                    backgroundColor: `rgba(255, 255, 255, ${opacity})`,
+                }}
+            >
+                {/* Emoji mode changes */}
+                <div className="text-5xl mb-2">{emoji}</div>
+
+                {/* Timer */}
+                <div className="text-5xl font-bold text-center text-gray-800 mb-4 opacity-90">
                     {formatTime(countdown)}
                 </div>
+
+                {/* Controls */}
                 <div className="flex flex-row gap-4 w-full justify-center">
-                    {!isActive && !hasFinished ? (
+                    {!isActive && !hasFinished && (
                         <button
                             onClick={handleStart}
                             role='button'
@@ -80,9 +93,8 @@ export function Timer({ seconds }) {
                         >
                             Start
                         </button>
-                    ) : null}
-
-                    {isActive ? (
+                    )}
+                    {isActive && (
                         <button
                             onClick={handleStop}
                             role='button'
@@ -90,12 +102,11 @@ export function Timer({ seconds }) {
                         >
                             Stop
                         </button>
-                    ) : null}
-
+                    )}
                     <button
                         onClick={handleReset}
                         role='button'
-                        className="bg-gray-400 hover:bg-gray-700 text-white font-semibold py-2 px-8 rounded drop-shadow transition-all duration-200"
+                        className="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-8 rounded drop-shadow transition-all duration-200"
                     >
                         Reset
                     </button>
@@ -105,5 +116,4 @@ export function Timer({ seconds }) {
             </div>
         </div>
     )
-
 }
