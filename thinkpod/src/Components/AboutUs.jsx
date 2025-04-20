@@ -25,7 +25,7 @@ export function AboutUs(){
             <p className='flex justify-start mt-1 text-xl font-gruppo'><small> More concentration, motivation, and <br></br> interest. Less fatigue and distraction.</small></p>
             <div className='flex justify-start mt-4'>
                 <BsFillRocketTakeoffFill  className='mt-1 w-6 h-6 text-red-600'/>
-                <p className='font-bold mt-1 ml-2 text-xl'> Efficiency Benefits</p>
+                <p className='font-bold mt-1 ml-2 text-xl font-gruppo'> Efficiency Benefits</p>
             </div>
             <p className='flex justify-start mt-1 text-xl font-gruppo'><small> Faster task completions in shorter time</small></p>
             <div className='flex justify-start mt-4'>
