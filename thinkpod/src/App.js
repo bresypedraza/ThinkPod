@@ -82,7 +82,7 @@ function App() {
                 </button>
               </div>
               <div>
-                <span className="text-3xl flex justify-center m-4">Background</span>
+                <span className="text-3xl flex justify-center m-4 font-gruppo">Background</span>
               </div>
                 <BackgroundSelection setBackgroundVideo={setBackgroundVideo} vidOptions={showBackgroundThemeOptions} />
             </div>
