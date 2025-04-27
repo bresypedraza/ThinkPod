@@ -3,6 +3,7 @@ import React, {useState } from 'react';
 import axios from 'axios';
 
 export function Login() {
+  const backendURL = ProcessingInstruction.env.REACT_APP_BACKEND_URL;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
@@ -10,7 +11,7 @@ export function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/login', { username, password });
+      const response = await axios.post('${backendURL}/login', { username, password });
       localStorage.setItem('token', response.data.access_token);
       setLoggedIn(true);
     } catch (error) {
@@ -20,7 +21,7 @@ export function Login() {
 
   const createAccount = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/createAccount', {username,password,});
+      const response = await axios.post('${backendURL}/createAccount', {username,password,});
       alert('Account created successfully!');
     } catch (error) {
       alert('Account creation failed!');
