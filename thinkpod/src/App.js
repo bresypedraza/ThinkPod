@@ -8,6 +8,7 @@ import { FaLightbulb } from "react-icons/fa6";
 import { Login } from './Components/Login.jsx';
 import { AboutUs } from './Components/AboutUs.jsx';
 import { TimerSettings } from './Components/TimerSettings';
+import { ToDoList } from './Components/ToDoList.jsx';
 
 
 function App() {
@@ -29,11 +30,14 @@ function App() {
   const [showSpotify, setSpotify] = useState(false);
   const [showAccountProfile, setAccountProfile] = useState(false);
   const [showAboutUs, setAboutUs] = useState(false);
+  const [showToDoList, setTodoList] = useState(false);
+
 
   const [showTimerSettings, setShowTimerSettings] = useState(false);
   const [timerVisible, setTimerVisible] = useState(true);
   const [timerOpacity, setTimerOpacity] = useState(0.5);
   const [timerSeconds, setTimerSeconds] = useState(1500);
+  
 
   const [mode, setMode] = useState('study');
 
@@ -41,7 +45,8 @@ function App() {
     setShowTimerSettings(prev => !prev);
   };
 
-
+  const [showTasks, setTasks] = useState([]);
+  const [showCheckMark, setCheckMark] =useState([]);
 
   return (
     <div className="App h-screen flex flex-col">
@@ -154,8 +159,15 @@ function App() {
         <AboutUs />
       </div>
 
+      {/* Todo List  Popup*/}
+      {showToDoList && (
+         <div className='fixed bottom-20 sm:left-[60%] left-[40%] z-49'> 
+           <ToDoList showTasks={showTasks} setTasks={setTasks} showCheckMark={showCheckMark} setCheckMark={setCheckMark}/>
+         </div>
+      )}
+
       {/* Navigation Bar */}
-      <Navigation toggleTimer={() => setShowTimer(prev => !prev)} toggleBgSelector={() => setShowBgSelector(prev => !prev)} toggleSpotify={() => setSpotify(prev => !prev)} toggleAccountProfile={() => setAccountProfile(prev => !prev)} aboutUs={() => setAboutUs(prev => !prev)} toggleTimerSettings={toggleTimerSettings} />
+      <Navigation toggleTimer={() => setShowTimer(prev => !prev)} toggleBgSelector={() => setShowBgSelector(prev => !prev)} toggleSpotify={() => setSpotify(prev => !prev)} toggleAccountProfile={() => setAccountProfile(prev => !prev)} aboutUs={() => setAboutUs(prev => !prev)} toggleTimerSettings={toggleTimerSettings} toDoList={()=> setTodoList(prev=> !prev)}/>
     </div>
   );
 }

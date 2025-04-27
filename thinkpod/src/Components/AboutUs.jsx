@@ -6,8 +6,8 @@ import { GiMeditation } from "react-icons/gi";
 
 export function AboutUs(){
     return(
-        <div className='bg-white p-5 flex justify-center sm:w-[45%] w-[90%] h-[53%] top-[200px] rounded-xl'>
-        <div className='overflow-auto [&::-webkit-scrollbar]:hidden'>
+        <div className='About_Us_Window bg-white p-5 flex justify-center sm:w-[45%] w-[90%] h-[53%] top-[200px] rounded-xl'>
+        <div className='About_Us_Content overflow-auto [&::-webkit-scrollbar]:hidden'>
             <h1>
                 <GiBrain className='w-8 h-8 text-blue-600 mx-auto'/>
             </h1>

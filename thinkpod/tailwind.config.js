@@ -11,7 +11,8 @@ module.exports = {
     extend: {
       colors:{
         'gray-rgba': 'rgba(245,228,204,0.5)',
-        'soft-white': 'rgba(255, 255, 255, 1)'
+        'soft-white': 'rgba(255, 255, 255, 1)',
+        'soft-gray': 'rgba(238,238,228, 1)'
       },
       fontFamily:{
         gruppo: ['Gruppo']
