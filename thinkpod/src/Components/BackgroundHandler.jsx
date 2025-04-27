@@ -1,10 +1,10 @@
 import React, { useState, useEffect, use } from 'react';
+import axios from 'axios';
 
 /**
  * A class that uses the Pixabay API to fetch all the videos that the website needs for background settings. 
  */
-export default class BackgroundHandler{
-
+class BackgroundHandler{
     static API_KEY = "49493386-996644cb7f2c9f25700dce247";
 
     /**
@@ -121,7 +121,48 @@ export default class BackgroundHandler{
 
 }
 
-export const ChangeBackground = ({videoUrl})=>{
+const GetSavedBackground = async (token) => {
+  try {
+    const response = await axios.get('http://localhost:5000/background', {
+      headers: { 
+        Authorization: `Bearer ${token}` 
+      },
+    });
+    return response.data.background_video;
+  } catch (error) {
+    console.error('Error fetching saved background:', error);
+  }
+};
+  
+const SaveBackground = async (videoUrl, token) => {
+  try {
+    await axios.put('http://localhost:5000/background', 
+      { backgroundPreference: videoUrl }, 
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (error) {
+    console.error('Error saving background:', error);
+  }
+};
+
+const ChangeBackground = ({videoUrl, setVideoUrl, token})=>{
+    useEffect(() => {
+        if (!videoUrl && token) {
+          GetSavedBackground(token)
+            .then((savedVideo) => {
+              if (savedVideo) {
+                setVideoUrl(savedVideo);
+              }
+            })
+            .catch(console.error);
+        }
+      }, [videoUrl, token, setVideoUrl]);
+   
     return(
         <div className="relative  w-full h-screen overflow-hidden">
             {videoUrl && (
@@ -137,34 +178,39 @@ export const ChangeBackground = ({videoUrl})=>{
 
 }
 
-
-
-export const BackgroundSelection = ({setBackgroundVideo, vidOptions})=>{
+const BackgroundSelection = ({setBackgroundVideo, vidOptions, token})=>{
     const [videosAndThumbnail, setVideoAndThumbnail] = useState([]);
 
 
     useEffect(() => {
         const videoHandler = new BackgroundHandler();
+        let fetchPromise;
 
-        switch(vidOptions){
-            case "All":
-                vidOptions = videoHandler.getAllThumbnailAndVideos();
-                break;
-            case "Snow":
-                vidOptions= videoHandler.getSnowVideosAndThumbnail();
-                break;
-            case "Ocean":
-                vidOptions = videoHandler.getOceanVideosAndThumbnail();
-                break;
-            case "Cozy":
-                vidOptions = videoHandler.getAmbienceVideosAndThumbnail();
-                break;
-            case "Space":
-                vidOptions = videoHandler.getSpaceVideosAndThumbnail();
-                break;
-        }
-        vidOptions.then(setVideoAndThumbnail).catch(console.error);
+        switch (vidOptions) {
+            case 'Snow':
+              fetchPromise = videoHandler.getSnowVideosAndThumbnail();
+              break;
+            case 'Ocean':
+              fetchPromise = videoHandler.getOceanVideosAndThumbnail();
+              break;
+            case 'Cozy':
+              fetchPromise = videoHandler.getAmbienceVideosAndThumbnail();
+              break;
+            case 'Space':
+              fetchPromise = videoHandler.getSpaceVideosAndThumbnail();
+              break;
+            default:
+              fetchPromise = videoHandler.getAllThumbnailAndVideos();
+              break;
+          }
+      
+          fetchPromise.then(setVideoAndThumbnail).catch(console.error);
         }, [vidOptions]);
+      
+        const handleClick = (videoUrl) => {
+          setBackgroundVideo(videoUrl);
+        };
+
         return(
             <div className="grid gap-3 md:grid-cols-3 grid-cols-2 cursor-pointer">
                 {videosAndThumbnail.map(([videoUrl, thumbnailUrl], index) => (
@@ -174,11 +220,13 @@ export const BackgroundSelection = ({setBackgroundVideo, vidOptions})=>{
                     src={thumbnailUrl}
                     width={290}
                     height={400}
-                    onClick={()=> setBackgroundVideo(videoUrl)}>
+                    onClick={()=> handleClick(videoUrl)}>
                     </img>
                 ))}   
             </div>
-        );
+        );     
 }
 
+export default BackgroundHandler;
+export { ChangeBackground, BackgroundSelection,GetSavedBackground, SaveBackground};
   

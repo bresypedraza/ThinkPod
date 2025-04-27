@@ -2,7 +2,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import { Timer } from './Components/Timer.jsx';
 import { Navigation } from './Components/NavBar.jsx';
-import { BackgroundSelection, ChangeBackground } from './Components/BackgroundHandler.jsx';
+import { ChangeBackground, BackgroundSelection,GetSavedBackground, SaveBackground } from './Components/BackgroundHandler.jsx';
 import BackgroundHandler from './Components/BackgroundHandler.jsx';
 import { FaLightbulb } from "react-icons/fa6";
 import { Login } from './Components/Login.jsx';
@@ -15,15 +15,6 @@ function App() {
 
   /*These are states that will be updated in the website.*/
   const [showBackgroundVideo, setBackgroundVideo] = useState(null);
-  useEffect(() => {
-    async function fetchDefaultBg() {
-      const bgHandler = new BackgroundHandler();
-      const [[videoUrl]] = await bgHandler.getDefaultBackground()
-      setBackgroundVideo(videoUrl);
-    }
-
-    fetchDefaultBg();
-  }, [])
   const [showBackgroundThemeOptions, setBackgroundThemeOptions] = useState("All");
   const [showTimer, setShowTimer] = useState(false);
   const [showBgSelector, setShowBgSelector] = useState(false);
@@ -40,6 +31,29 @@ function App() {
   
 
   const [mode, setMode] = useState('study');
+
+
+  useEffect(() => {
+    async function fetchDefaultBg() {
+      const bgHandler = new BackgroundHandler();
+      const [[videoUrl]] = await bgHandler.getDefaultBackground()
+      setBackgroundVideo(videoUrl);
+    }
+
+    fetchDefaultBg();
+  }, [])
+
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    async function fetchDefaultBg() {
+      const bgHandler = new BackgroundHandler();
+      const [[videoUrl]] = await bgHandler.getDefaultBackground()
+      setBackgroundVideo(videoUrl);
+    }
+
+    fetchDefaultBg();
+  }, [])
 
   const toggleTimerSettings = () => {
     setShowTimerSettings(prev => !prev);
@@ -112,14 +126,15 @@ function App() {
               <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={() => { setBackgroundThemeOptions("Space") }}>
                 <i class="em em-milky_way" aria-role="presentation" aria-label="MILKY WAY"></i>
               </div>
-              <button className="saveButton text-xs ">
+              <button className="saveButton text-xs " onClick={() => SaveBackground()}>
                 Save
               </button>
             </div>
             <div>
               <span className="text-3xl flex justify-center m-4 font-gruppo">Background</span>
             </div>
-            <BackgroundSelection setBackgroundVideo={setBackgroundVideo} vidOptions={showBackgroundThemeOptions} />
+            <BackgroundSelection setBackgroundVideo={setBackgroundVideo} vidOptions={showBackgroundThemeOptions} token={token} />
+            <BackgroundSelection setBackgroundVideo={setBackgroundVideo} vidOptions={showBackgroundThemeOptions} token={token} />
           </div>
         </div>
       </div>
