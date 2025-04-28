@@ -11,7 +11,7 @@ export function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('${backendURL}/login', { username, password });
+      const response = await axios.post({backendURL}+ '/login', { username, password });
       localStorage.setItem('token', response.data.access_token);
       setLoggedIn(true);
     } catch (error) {
@@ -21,7 +21,7 @@ export function Login() {
 
   const createAccount = async () => {
     try {
-      const response = await axios.post('${backendURL}/createAccount', {username,password,});
+      const response = await axios.post( {backendURL}+ '/createAccount', {username,password,});
       alert('Account created successfully!');
     } catch (error) {
       alert('Account creation failed!');

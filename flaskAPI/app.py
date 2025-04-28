@@ -13,15 +13,13 @@ load_dotenv()
 app = Flask(__name__)
 
 #for deployment the URL needs to be set to the actual domain name!!
-CLIENT_URL = os.getenv("CLIENT_URL", "http://localhost:3000")
+CLIENT_URL = os.getenv("CLIENT_URL")
 
 #setting up CORS
 CORS(app, origins=[CLIENT_URL], supports_credentials=True, methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"], allow_headers=["Authorization", "Content-Type"])
 
 #Configuring a PostgresSQL Database from the .env file
 DATABASE_URL = os.getenv("DATABASE_URL")
-if DATABASE_URL and "sslmode" not in DATABASE_URL:
-    DATABASE_URL += "?sslmode=require"
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
