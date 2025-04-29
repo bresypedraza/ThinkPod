@@ -2,10 +2,14 @@ services:
   - type: web
     name: flaskAPI
     env: python
-    buildCommand: ""
+    buildCommand: pip install -r flaskAPI/requirements.txt
     startCommand: gunicorn app:app
     envVars:
       - key: FLASK_ENV
         value: production
       - key: PORT
         value: 10000
+    buildFilter:
+      paths:
+        - flaskAPI/**
+    rootDir: flaskAPI
