@@ -20,7 +20,7 @@ export function Login() {
 
   const createAccount = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/login', { username, password });
+      const response = await axios.post('http://127.0.0.1:5000/createAccount', { username, password });
       alert('Account created successfully!');
     } catch (error) {
       alert('Account creation failed!');
