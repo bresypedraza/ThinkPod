@@ -45,6 +45,8 @@ function App() {
     setShowTimerSettings(prev => !prev);
   };
 
+
+  /* Todo List states */
   const [showTasks, setTasks] = useState([]);
   const [showCheckMark, setCheckMark] =useState([]);
 
@@ -59,7 +61,7 @@ function App() {
 
       {/* Timer Popup */}
       <div
-        className="fixed top-6 right-6 z-50 transition-opacity duration-300"
+        className="md:fixed top-6 md:right-6 md:flex-none flex justify-center right-none z-50 transition-opacity duration-300"
         style={{
           opacity: timerVisible ? 1 : 0,
           pointerEvents: timerVisible ? 'auto' : 'none'
@@ -94,22 +96,22 @@ function App() {
           pointerEvents: showBgSelector ? 'auto' : 'none',
         }}>
         <div className="background_window flex items-center justify-center">
-          <div className="background_setting absolute bg-gray-rgba bg-opacity-50 font-bold overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] 
-             rounded-xl p-5 sm:w-[45%] w-[90%] h-[53%] top-[200px]">
+          <div className="background_setting absolute bg-white font-bold overflow-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] 
+             rounded-xl p-5 sm:w-[45%] w-[90%] h-[53%] top-[255px]">
             <div className="ThemeSelector grid grid-flow-col gap-1 md:gap-4 grid-cols-[auto_auto_auto_auto_1fr] md:grid-cols-[auto_auto_auto_auto_1fr]">
-              <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={() => { setBackgroundThemeOptions("All") }}>
+              <div className="w-8 bg-soft-white rounded-md rounded p-1 shadow-lg shadow-cyan-500/50" onClick={() => { setBackgroundThemeOptions("All") }}>
                 All
               </div>
-              <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={() => { setBackgroundThemeOptions("Snow") }}>
+              <div className="w-8 bg-soft-white rounded-md rounded p-1 shadow-lg shadow-cyan-500/50" onClick={() => { setBackgroundThemeOptions("Snow") }}>
                 <i class="em em-snowman" aria-role="presentation" aria-label=""></i>
               </div>
-              <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={() => { setBackgroundThemeOptions("Ocean") }}>
+              <div className="w-8 bg-soft-white rounded-md rounded p-1 shadow-lg shadow-cyan-500/50" onClick={() => { setBackgroundThemeOptions("Ocean") }}>
                 <i class="em em-ocean" aria-role="presentation" aria-label="WATER WAVE"></i>
               </div>
-              <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={() => { setBackgroundThemeOptions("Cozy") }}>
+              <div className="w-8 bg-soft-white rounded-md rounded p-1 shadow-lg shadow-cyan-500/50" onClick={() => { setBackgroundThemeOptions("Cozy") }}>
                 <i class="em em-couch_and_lamp" aria-role="presentation" aria-label=""></i>
               </div>
-              <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={() => { setBackgroundThemeOptions("Space") }}>
+              <div className="w-8 bg-soft-white rounded-md rounded p-1 shadow-lg shadow-cyan-500/50" onClick={() => { setBackgroundThemeOptions("Space") }}>
                 <i class="em em-milky_way" aria-role="presentation" aria-label="MILKY WAY"></i>
               </div>
               <button className="saveButton text-xs ">

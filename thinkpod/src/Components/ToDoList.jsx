@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CiEdit } from "react-icons/ci";
 import { FcEmptyTrash } from "react-icons/fc";
+import { GiNotebook } from "react-icons/gi";
 
 
 export function ToDoList({showTasks, setTasks, showCheckMark, setCheckMark}){
@@ -10,9 +11,6 @@ export function ToDoList({showTasks, setTasks, showCheckMark, setCheckMark}){
         setShouldSlide(true);
     },[]);
 
-    const handleDeletion = (task)=>{
-        setTasks(showTasks.filter(item=> item !== task ));
-    }
 
     return(
         <div className=
@@ -20,12 +18,15 @@ export function ToDoList({showTasks, setTasks, showCheckMark, setCheckMark}){
         ${shouldSlide ? `translate-x-0`  : `translate-x-full`}
         transition-transform duration-500 ease-out`}>
             <div className='  overflow-auto [&::-webkit-scrollbar]:hidden'>
-                <h1 className='font-gruppo text-xl font-bold'>
-                    To Do List
-                </h1>
+                <div className='flex justify-center items-center p-2 space-x-3'>
+                    <h1 className='font-gruppo text-xl font-bold'>
+                        To Do List
+                    </h1>
+                    <GiNotebook className='w-8 h-6 text-yellow-500'/>
+                </div>
                 <SearchBarAndButton setTasks={setTasks} setCheckMark={setCheckMark}/>
                 <div className='flex flex-col'>
-                    {showTasks.map((task, index) =>  <TaskPlanBox taskName={task} onDelete={()=> handleDeletion(task)} showCheckMark={showCheckMark}  setCheckMark={setCheckMark} index={index}/> )}
+                    {showTasks.map((task, index) =>  <TaskPlanBox showTasks={showTasks} setTasks={setTasks} showCheckMark={showCheckMark}  setCheckMark={setCheckMark} index={index} key={index}/> )}
                 </div>
             </div>
         </div>
@@ -40,24 +41,19 @@ function SearchBarAndButton({setTasks, setCheckMark}){
         setSearchTerm(event.target.value);
       };
     const handleCheckMarkState = ()=>{
-        // const newCheckBoxState = (prev)=> [...prev, false];
         setCheckMark(prev=> [...prev, false]);
     }
     return(
-        <div className='flex'>
+        <div className='flex justify-center'>
             <input
-                className='p-2 font-gruppo rounded-xl'
+                className='p-2 font-gruppo rounded-xl sm:w-[200px] w-[60%] border-[3px] border-solid border-[#555]'
                 type="text"
                 value={searchTerm}
                 placeholder='Add a plan'
                 onChange={handleInputChange}
-                style={{
-                    width: '100%',
-                    border: '3px solid #555'
-                }}
             />
             <button 
-            className='bg-gradient-to-r from-amber-500 to-pink-500 w-[50%] rounded-xl'
+            className='bg-gradient-to-r from-amber-500 to-pink-500 sm:w-[100px] w-[35%] ml-2 rounded-xl font-gruppo '
             onClick={()=> {
                 setTasks(prev => [...prev, searchTerm])
                 handleCheckMarkState();
@@ -69,9 +65,8 @@ function SearchBarAndButton({setTasks, setCheckMark}){
     );
 }
 
-function TaskPlanBox({taskName, onDelete, showCheckMark, setCheckMark, index}){
+function TaskPlanBox({showTasks, setTasks, showCheckMark, setCheckMark, index}){
     const[showIsEditing, setIsEditing]=useState(false);
-    const[isVisible, setVisibility] = useState(true);
 
 
     const handleIsChecked = () => {
@@ -81,8 +76,12 @@ function TaskPlanBox({taskName, onDelete, showCheckMark, setCheckMark, index}){
          setCheckMark(checkState);
     };
 
+    const handleTaskDeletion =()=> {
+        setTasks(showTasks.filter((_, idx)=> idx != index));
+        setCheckMark(showCheckMark.filter((_, idx)=> idx != index))
+    }
+
     return(
-         isVisible &&(
             <div className='bg-soft-gray relative mt-4 rounded-lg font-gruppo sm:w-[30vw] h-[50px] w-[48vw] pl-[1vw] flex items-center ' >
                 <label>
                     <input 
@@ -98,25 +97,20 @@ function TaskPlanBox({taskName, onDelete, showCheckMark, setCheckMark, index}){
                         }>
                     </span>
                 </label>
-                <HandleInlineEdit taskName={taskName} showIsEditing={showIsEditing} setIsEditing={setIsEditing}/>
+                <HandleInlineEdit taskName={showTasks[index]} showTasks={showTasks} setTasks={setTasks} showIsEditing={showIsEditing} setIsEditing={setIsEditing} index={index}/>
                 <div className='flex ml-auto mr-[5px]'>
                     <CiEdit 
                     className='w-4 h-4 mr-2 text-red-600'
                     onClick={()=> setIsEditing('true')}/>
                     <FcEmptyTrash 
                     className='w-4 h-4' 
-                    onClick={
-                        onDelete
-                    }/>
+                    onClick={handleTaskDeletion}/>
                 </div>
             </div>
-        )
-    );
+        );
 }
 
-function HandleInlineEdit({taskName, showIsEditing, setIsEditing}){
-    const[showTaskName, setTaskName] = useState({taskName});
-
+function HandleInlineEdit({taskName, showTasks, setTasks, showIsEditing, setIsEditing, index}){
     const handleBlur = () =>{
        return setIsEditing(false);
     }
@@ -127,19 +121,27 @@ function HandleInlineEdit({taskName, showIsEditing, setIsEditing}){
         }
     }
 
+    const handleTaskNameChange = (event)=>{
+        const taskChange = showTasks.map((task, idx)=> 
+            {if (idx==index) return event.target.value; 
+                else return  task}
+        );
+        setTasks(taskChange);
+    }
+
     return(
        <div>
            {showIsEditing ? (
                <input
-               value={showTaskName.taskName}
-               onChange={(event)=> setTaskName({taskName: event.target.value })}
+               value={taskName}
+               onChange={handleTaskNameChange}
                onBlur={handleBlur}
                onKeyDown={handleEnterKey}
                className='ml-1 p-1 rounded-xl sm:w-[10vw] w-[25vw]'
                />
            ):(
                <p className='ml-2 whitespace-normal text-xs'> 
-                   {showTaskName.taskName}
+                   {taskName}
                </p>
            )}
        </div>

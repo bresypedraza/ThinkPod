@@ -6,7 +6,7 @@ import { GiMeditation } from "react-icons/gi";
 
 export function AboutUs(){
     return(
-        <div className='About_Us_Window bg-white p-5 flex justify-center sm:w-[45%] w-[90%] h-[53%] top-[200px] rounded-xl'>
+        <div className='About_Us_Window bg-white p-5 flex justify-center sm:w-[45%] w-[90%] h-[40%] top-[200px] rounded-xl sm:mt-none mt-20'>
         <div className='About_Us_Content overflow-auto [&::-webkit-scrollbar]:hidden'>
             <h1>
                 <GiBrain className='w-8 h-8 text-blue-600 mx-auto'/>
@@ -32,7 +32,7 @@ export function AboutUs(){
                 <GiMeditation  className='mt-1 w-6 h-6 text-purple-600'/>
                 <p className='font-bold mt-1 ml-2 text-xl font-gruppo'> Greater Awareness</p>
             </div>
-            <p className='flex justify-start mt-1 text-xl font-gruppo'><small> Students reported becoming more aware of their <br></br> own study habits. Better self-monitoring overall.</small></p>
+            <p className='flex justify-start mt-1 text-xl font-gruppo'><small> Most students reported becoming more aware of<br></br>  their own study habits.  Better self-monitoring!</small></p>
         </div>
     </div>
     )
