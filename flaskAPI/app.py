@@ -16,7 +16,7 @@ app = Flask(__name__)
 CLIENT_URL = os.getenv("CLIENT_URL", "http://localhost:3000")
 
 #setting up CORS
-CORS(app, origins=[CLIENT_URL], supports_credentials=True, methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"], allow_headers=["Authorization", "Content-Type"])
+CORS(app, origins="*", supports_credentials=True, methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"], allow_headers=["Authorization", "Content-Type"])
 
 #Configuring a PostgresSQL Database from the .env file
 DATABASE_URL = os.getenv("DATABASE_URL")
