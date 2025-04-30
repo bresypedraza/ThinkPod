@@ -126,7 +126,7 @@ function App() {
               <div className="w-8 bg-soft-white rounded-md rounded p-1" onClick={() => { setBackgroundThemeOptions("Space") }}>
                 <i class="em em-milky_way" aria-role="presentation" aria-label="MILKY WAY"></i>
               </div>
-              <button className="saveButton text-xs " onClick={() => SaveBackground()}>
+              <button className="saveButton text-xs " onClick={() => SaveBackground(videoUrl, token)}>
                 Save
               </button>
             </div>
