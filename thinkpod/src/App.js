@@ -31,29 +31,29 @@ function App() {
   
 
   const [mode, setMode] = useState('study');
-
-
-  useEffect(() => {
-    async function fetchDefaultBg() {
-      const bgHandler = new BackgroundHandler();
-      const [[videoUrl]] = await bgHandler.getDefaultBackground()
-      setBackgroundVideo(videoUrl);
-    }
-
-    fetchDefaultBg();
-  }, [])
-
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    async function fetchDefaultBg() {
+    async function fetchBackground() {
       const bgHandler = new BackgroundHandler();
-      const [[videoUrl]] = await bgHandler.getDefaultBackground()
-      setBackgroundVideo(videoUrl);
+  
+      if (token) {
+        try {
+          const [[videoUrl]] = await bgHandler.getSavedBackground(token);
+          setBackgroundVideo(videoUrl);
+          return;
+        } catch (error) {
+          console.error("Error fetching saved background, loading default instead.", error);
+        }
+      }
+  
+      // fallback to default background
+      const [[defaultUrl]] = await bgHandler.getDefaultBackground();
+      setBackgroundVideo(defaultUrl);
     }
-
-    fetchDefaultBg();
-  }, [])
+  
+    fetchBackground();
+  }, [token]);
 
   const toggleTimerSettings = () => {
     setShowTimerSettings(prev => !prev);
