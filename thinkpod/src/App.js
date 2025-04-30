@@ -39,7 +39,7 @@ function App() {
   
       if (token) {
         try {
-          const [[videoUrl]] = await bgHandler.getSavedBackground(token);
+          const [[videoUrl]] = await bgHandler.GetSavedBackground(token);
           setBackgroundVideo(videoUrl);
           return;
         } catch (error) {
