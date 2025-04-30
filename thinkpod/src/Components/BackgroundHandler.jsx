@@ -123,12 +123,12 @@ class BackgroundHandler{
 
 const GetSavedBackground = async (token) => {
   try {
-    const response = await axios.get('https://dummybackend-hcjs.onrender.com//background', {
+    const response = await axios.get('https://dummybackend-hcjs.onrender.com/background', {
       headers: { 
         Authorization: `Bearer ${token}` 
       },
     });
-    return response.data.background_video;
+    return response.data.backgroundPreference;
   } catch (error) {
     console.error('Error fetching saved background:', error);
   }
