@@ -34,26 +34,29 @@ function App() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const fetchBackground = async () => {
-      if (!videoUrl && token) {
+    async function loadUserBackground() {
+      if (token) {
         try {
           const savedVideo = await GetSavedBackground(token);
           if (savedVideo) {
-            setVideoUrl(savedVideo);
+            setBackgroundVideo(savedVideo);
           } else {
-            // Load a default background from Pixabay if nothing is saved
-            const handler = new BackgroundHandler();
-            const [[defaultUrl]] = await handler.getDefaultBackground();
-            setVideoUrl(defaultUrl);
+            const bgHandler = new BackgroundHandler();
+            const [[defaultVideoUrl]] = await bgHandler.getDefaultBackground();
+            setBackgroundVideo(defaultVideoUrl);
           }
-        } catch (error) {
-          console.error('Error loading background:', error);
+        } catch (e) {
+          console.error("Error fetching saved background, loading default instead.", e);
+          const bgHandler = new BackgroundHandler();
+          const [[defaultVideoUrl]] = await bgHandler.getDefaultBackground();
+          setBackgroundVideo(defaultVideoUrl);
         }
       }
-    };
+    }
   
-    fetchBackground();
-  }, [videoUrl, token, setVideoUrl]);
+    loadUserBackground();
+  }, [token]);
+  
 
   const toggleTimerSettings = () => {
     setShowTimerSettings(prev => !prev);
