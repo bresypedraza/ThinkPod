@@ -136,7 +136,7 @@ const GetSavedBackground = async (token) => {
   
 const SaveBackground = async (videoUrl, token) => {
   try {
-    await axios.put('https://dummybackend-hcjs.onrender.com//background', 
+    await axios.put('https://dummybackend-hcjs.onrender.com/background', 
       { backgroundPreference: videoUrl }, 
       {
         headers: {

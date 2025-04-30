@@ -113,7 +113,7 @@ def background_preference():
     user = User.query.filter_by(username=username).first()
     
     if request.method == "GET":
-        return jsonify({"background_video": user.backgroundPreference})
+        return jsonify({"backgroundPreference": user.backgroundPreference})
 
     if request.method == 'PUT':
         data = request.get_json()
