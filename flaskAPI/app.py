@@ -84,7 +84,7 @@ with app.app_context():
     db.create_all()
 
 #ROUTES
-@app.route('/login',methods=['POST'])
+@app.route('/login',methods=['POST', 'OPTIONS'])
 def login():
     username = request.json.get('username', '')
     password = request.json.get('password', '')
@@ -96,7 +96,7 @@ def login():
         return response
     return jsonify({"message":"Invalid credentials"}), 401
 
-@app.route('/createAccount', methods=['POST'])
+@app.route('/createAccount', methods=['POST', 'OPTIONS'])
 def createAccount():
     data = request.get_json()
     username = data.get('username')
@@ -106,7 +106,7 @@ def createAccount():
     db_manager.createUser(username=username, password=password)
     return jsonify({"message": "Account created successfully"}), 201
 
-@app.route('/background', methods=['GET', 'PUT'])
+@app.route('/background', methods=['GET', 'PUT', 'OPTIONS'])
 @jwt_required()
 def background_preference():
     username = get_jwt_identity()
