@@ -90,6 +90,9 @@ def login():
     password = request.json.get('password', '')
     user = User.query.filter_by(username=username).first()
 
+    if request.method == 'OPTIONS':
+        return '', 200
+    
     if user and user.password == password:
         access_token = create_access_token(identity=username)
         response = jsonify(access_token=access_token)
@@ -101,6 +104,10 @@ def createAccount():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
+
+    if request.method == 'OPTIONS':
+        return '', 200
+    
     if User.query.filter_by(username=username).first():
         return jsonify({"message": "Username already exists"}), 409
     db_manager.createUser(username=username, password=password)
@@ -111,6 +118,9 @@ def createAccount():
 def background_preference():
     username = get_jwt_identity()
     user = User.query.filter_by(username=username).first()
+
+    if request.method == 'OPTIONS':
+        return '', 200
     
     if request.method == "GET":
         return jsonify({"backgroundPreference": user.backgroundPreference})
@@ -127,6 +137,9 @@ def background_preference():
 def timerPreference():
     username = get_jwt_identity()
     user = User.query.filter_by(username=username).first()
+    if request.method == 'OPTIONS':
+        return '', 200
+    
     if request.method == "POST":
         data = request.get_json()
         studyTimer = data.get('studyTimer')
