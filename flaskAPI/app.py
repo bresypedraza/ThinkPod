@@ -84,43 +84,34 @@ with app.app_context():
     db.create_all()
 
 #ROUTES
-@app.route('/login',methods=['POST', 'OPTIONS'])
+@app.route('/login',methods=['POST'])
 def login():
     username = request.json.get('username', '')
     password = request.json.get('password', '')
     user = User.query.filter_by(username=username).first()
 
-    if request.method == 'OPTIONS':
-        return '', 200
-    
     if user and user.password == password:
         access_token = create_access_token(identity=username)
         response = jsonify(access_token=access_token)
         return response
     return jsonify({"message":"Invalid credentials"}), 401
 
-@app.route('/createAccount', methods=['POST', 'OPTIONS'])
+@app.route('/createAccount', methods=['POST'])
 def createAccount():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
-
-    if request.method == 'OPTIONS':
-        return '', 200
     
     if User.query.filter_by(username=username).first():
         return jsonify({"message": "Username already exists"}), 409
     db_manager.createUser(username=username, password=password)
     return jsonify({"message": "Account created successfully"}), 201
 
-@app.route('/background', methods=['GET', 'PUT', 'OPTIONS'])
+@app.route('/background', methods=['GET', 'PUT'])
 @jwt_required()
 def background_preference():
     username = get_jwt_identity()
     user = User.query.filter_by(username=username).first()
-
-    if request.method == 'OPTIONS':
-        return '', 200
     
     if request.method == "GET":
         return jsonify({"backgroundPreference": user.backgroundPreference})
@@ -131,26 +122,6 @@ def background_preference():
         db_manager.updateBackgroundPreferences(username, background)
         return jsonify({"message": "Background updated successfully"})
     
-
-@app.route('/timer', methods=['GET','POST'])
-@jwt_required()
-def timerPreference():
-    username = get_jwt_identity()
-    user = User.query.filter_by(username=username).first()
-    if request.method == 'OPTIONS':
-        return '', 200
-    
-    if request.method == "POST":
-        data = request.get_json()
-        studyTimer = data.get('studyTimer')
-        breakTimer = data.get('breakTimer')
-        db_manager.updateTimer(username, studyTimer, breakTimer)
-        return "success"
-
-    return jsonify({
-        "studyTimer": user.studyTimerLength,
-        "breakTimer": user.breakTimerLength
-    })
 
 if __name__ == '__main__':
     with app.app_context():
