@@ -68,9 +68,9 @@ export function Timer({ seconds, opacity = 0.5, hidden = false, mode = 'study' }
     const emoji = mode === 'study' ? '📚' : '💤';
 
     return (
-        <div className="p-2 flex justify-end font-gruppo">
+        <div className="p-1 flex justify-end font-gruppo">
             <div
-                className="rounded-lg drop-shadow shadow-md p-6 md:w-72 flex flex-col items-center text-2xl"
+                className="rounded-lg drop-shadow shadow-md p-6 md:w-72 flex flex-col items-center text-2xl md:bot-none "
                 style={{
                     backgroundColor: `rgba(255, 255, 255, ${opacity})`,
                 }}
