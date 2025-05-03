@@ -199,12 +199,12 @@ export const BackgroundSelection = ({setBackgroundVideo, vidOptions})=>{
                 break;
         }
 
-        // When `vidOptions` (a Promise) changes, wait for it to resolve.
+        // Makes sure that when vidOption (a Promise) changes, JS waits for it to resolve.
         // On success, update the video and thumbnail state using `setVideoAndThumbnail`.
         // On failure, log the error to the console.        
         vidOptions.then(setVideoAndThumbnail).catch(console.error);
         }, [vidOptions]);
-        
+
         return(
             <div className="grid gap-3 md:grid-cols-3 grid-cols-2 cursor-pointer">
                 {videosAndThumbnail.map(([videoUrl, thumbnailUrl], index) => (
